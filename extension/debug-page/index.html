@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Normandy Nextgen Study Example</h1>
+    <section id="extension-data"></section>
+    <section id="study-data">
+      <h2>Study</h2>
+    </section>
+    <section id="client-data">
+      <h2>Client</h2>
+    </section>
+    <section id="end-study">
+      <h2>End study</h2>
+      <form>
+        <label>Reason: <input required name="reason"/></label>
+        <button type="submit" name="endStudy">End this study</button>
+      </form>
+      <ul class="log"></ul>
+    </section>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

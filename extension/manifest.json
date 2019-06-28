@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Normandy NextGen Study Example",
+  "version": "0.1",
+  "description": "Demonstrates 2019-style Normandy add-on studies",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "normandy-nextgen-study-example@mozilla.org"
+    }
+  },
+
+  "browser_action": {
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions": ["normandyAddonStudy"]
+}
