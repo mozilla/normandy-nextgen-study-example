@@ -1,0 +1,13 @@
+h1 {
+  font-size: 1.5em;
+}
+
+.error {
+  color: red;
+}
+
+#branch-indicator {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}

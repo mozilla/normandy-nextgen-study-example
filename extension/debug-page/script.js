@@ -65,6 +65,9 @@ async function main() {
         .appendChild(
           makeEl("pre", {}, makeEl("code", {}, JSON.stringify(study, null, 4)))
         );
+      document
+        .querySelector("#branch-indicator")
+        .style.setProperty("background-color", study.branch);
     } else {
       document
         .querySelector("#study-data")
@@ -123,6 +126,15 @@ async function main() {
         makeEl("p", { class: "error" }, "Could not load client metadata:", err)
       );
     throw err;
+  }
+
+  const endStudyDiv = document.querySelector("#end-study");
+  if (study && study.ended) {
+    endStudyDiv.innerHTML = "";
+    endStudyDiv.append(makeEl("p", {}, "The study has already ended."));
+  } else if (!study) {
+    endStudyDiv.innerHTML = "";
+    endStudyDiv.append(makeEl("p", { class: "error" }, "No study found"));
   }
 
   let form = document.querySelector("#end-study form");

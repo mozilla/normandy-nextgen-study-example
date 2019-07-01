@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Normandy NextGen Study Example",
-  "version": "0.1",
+  "version": "0.1.1",
   "description": "Demonstrates 2019-style Normandy add-on studies",
 
   "browser_specific_settings": {
@@ -10,8 +10,7 @@
     }
   },
 
-  "browser_action": {
-  },
+  "browser_action": {},
 
   "background": {
     "scripts": ["background.js"]
