@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Normandy NextGen Study Example",
+  "version": "${package.version}",
+  "description": "${package.description}",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "${package.name}-${variant}@mozilla.org"
+    }
+  },
+
+  "browser_action": {},
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions": ["normandyAddonStudy"]
+}
