@@ -15,6 +15,7 @@ function makeEl(type, attrs = {}, ...children) {
 
 async function main() {
   console.log("Getting basic extension information");
+  const manifest = browser.runtime.getManifest();
   document
     .querySelector("#extension-data")
     .appendChild(
@@ -23,6 +24,8 @@ async function main() {
         {},
         `This extension is `,
         makeEl("code", {}, browser.runtime.id),
+        " version ",
+        makeEl("code", {}, manifest.version),
         "."
       )
     );

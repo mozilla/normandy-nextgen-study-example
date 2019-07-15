@@ -7,6 +7,12 @@ identical except for its add-on ID. This is to test different study branches
 having different XPIs. The add-on ID is shown in the UI of the add-on, in
 order to distinguish different XPIs.
 
+Additionally, there are two versions of each variant: A base version and a
+"pre" version. The two versions are identical except for their version
+number. If the base version is `0.3`, then the pre version would be `0.3pre`.
+When Firefox compares versions, `0.3pre` would be seen as less than `0.3`.
+These two can be used to test upgrading between versions of the add-on.
+
 ## Usage of the add-on
 
 When installed correctly, the add-on places a green puzzle piece browser
@@ -17,9 +23,9 @@ with details about the add-on's operation. It should show several things.
    corresponds to the branch name of the enrolled study. For example, if the
    branch's name is "red", then the square will be red.
 
-2. The extension ID. This is useful to verify that the client installed the
-   appropriate add-on for the branch, in the case that the study has a
-   different add-on per branch.
+2. The extension ID and version. This is useful to verify that the client
+   installed the appropriate add-on for the branch, in the case that the
+   study has a different add-on per branch.
 
 3. The full study metadata, as JSON. This includes all available local
    metadata about this study, including the add-on installed, the branch

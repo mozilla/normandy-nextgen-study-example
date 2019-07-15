@@ -33,11 +33,16 @@ const DEST_BASE_DIR = "./dist";
  * @param {String} variant The variant of the extension to build. Used in file
  *        paths and provided to templates.
  */
-async function copyAddonSrc(variant) {
-  const targetDir = pathModule.join(DEST_BASE_DIR, `extension-${variant}`);
+async function copyAddonSrc({ variant, versionSuffix }) {
+  const computedVersion = packageJson.version + versionSuffix;
+  const targetDir = pathModule.join(
+    DEST_BASE_DIR,
+    `extension-${variant}-${computedVersion}`
+  );
   const templateData = {
     package: packageJson,
-    variant
+    variant,
+    versionSuffix
   };
 
   await new Promise((resolve, reject) => {
@@ -91,8 +96,12 @@ async function copyAddonSrc(variant) {
  * @param {String} variant The variant of the extension to build. Used to find
  *        the source and name the final XPI file.
  */
-async function buildAddon(variant) {
-  const addonDir = pathModule.join(DEST_BASE_DIR, `extension-${variant}`);
+async function buildAddon({ variant, versionSuffix }) {
+  const computedVersion = packageJson.version + versionSuffix;
+  const addonDir = pathModule.join(
+    DEST_BASE_DIR,
+    `extension-${variant}-${computedVersion}`
+  );
   await webExt.cmd.build(
     {
       sourceDir: addonDir,
@@ -103,27 +112,29 @@ async function buildAddon(variant) {
   );
   let oldFilePath = pathModule.join(
     "web-ext-artifacts",
-    `normandy_nextgen_study_example-${packageJson.version}.zip`
+    `normandy_nextgen_study_example-${computedVersion}.zip`
   );
   let newFilePath = pathModule.join(
     "web-ext-artifacts",
-    `${packageJson.name}-${variant}@mozilla.org-${packageJson.version}.xpi`
+    `${packageJson.name}-${variant}@mozilla.org-${computedVersion}.xpi`
   );
-  wait fsp.rename(oldFilePath, newFilePath);
+  await fsp.rename(oldFilePath, newFilePath);
   console.log(`Renamed ${oldFilePath} to ${newFilePath}`);
 }
 
-async function buildVariant(variant) {
-  await copyAddonSrc(variant);
-  await buildAddon(variant);
+async function buildVariant(options) {
+  await copyAddonSrc(options);
+  await buildAddon(options);
 }
 
 async function main() {
   await rimraf(DEST_BASE_DIR);
   await fsp.mkdir(DEST_BASE_DIR);
 
-  for (const variant of ["a", "b", "c"]) {
-    await buildVariant(variant);
+  for (const versionSuffix of ["", "pre"]) {
+    for (const variant of ["a", "b", "c"]) {
+      await buildVariant({ variant, versionSuffix });
+    }
   }
 }
 

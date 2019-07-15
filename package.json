@@ -1,6 +1,6 @@
 {
   "name": "normandy-nextgen-study-example",
-  "version": "0.2.0",
+  "version": "0.3",
   "description": "Demonstrates how to make a 2019-style Normandy add-on study",
   "private": true,
   "license": "MPLv2",
