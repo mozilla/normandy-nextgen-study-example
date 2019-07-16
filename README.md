@@ -13,6 +13,8 @@ number. If the base version is `0.3`, then the pre version would be `0.3pre`.
 When Firefox compares versions, `0.3pre` would be seen as less than `0.3`.
 These two can be used to test upgrading between versions of the add-on.
 
+All variants of the add-on are available on [the releases page](https://github.com/mozilla/normandy-nextgen-study-example/releases).
+
 ## Usage of the add-on
 
 When installed correctly, the add-on places a green puzzle piece browser
