@@ -1,10 +1,17 @@
 # Normandy NextGen Study Example
 
-Demonstrates how to make a 2019-style Normandy add-on study
+Demonstrates how to make a 2019-style Normandy add-on study.
+
+There are three _variants_ of the add-on provided: "a", "b", and "c". Each is
+identical except for its add-on ID. This is to test different study branches
+having different XPIs. The add-on ID is shown in the UI of the add-on, in
+order to distinguish different XPIs.
 
 ## Usage of the add-on
 
-When installed correctly, they add-on places a green puzzle piece browser action in the top right of the browser. Clicking this icon will open a page with details about the add-on's operation. It should show several things.
+When installed correctly, the add-on places a green puzzle piece browser
+action in the top right of the browser. Clicking this icon will open a page
+with details about the add-on's operation. It should show several things.
 
 1. In the header, there should be a color square. The color of the square
    corresponds to the branch name of the enrolled study. For example, if the
@@ -73,9 +80,12 @@ await AddonStudies.add({
 
 ## Development
 
-```
-yarn install --frozen-lockfile
+```bash
+yarn install
 yarn build
 ```
 
-A built add-on will be placed in `./web-ext-artifacts/`.
+Several built add-ons will be placed in `./web-ext-artifacts/`. Each is
+nearly identical except for the extension ID, which includes the name of the
+variant built. The variants are "a", "b", and "c". Nothing changes about the
+add-on in each variant except the ID.
