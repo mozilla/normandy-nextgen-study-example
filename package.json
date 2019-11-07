@@ -7,9 +7,10 @@
   "scripts": {
     "build": "node build.js",
     "clean": "rimraf dist web-ext-artifacts",
-    "eslint": "eslint . --ext jsm,js,json",
-    "format": "npm run prettier && npm run eslint -- --fix",
-    "prettier": "prettier '**/*.{css,js,json,jsm,md}' --trailing-comma=all --ignore-path=.eslintignore --write"
+    "lint": "eslint . --ext jsm,js,json",
+    "format": "npm-run-all format:*",
+    "format:eslint": "eslint . --ext jsm,js,json --fix",
+    "format:prettier": "prettier '**/*.{css,js,json,jsm,md}' --trailing-comma=all --ignore-path=.eslintignore --write"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
