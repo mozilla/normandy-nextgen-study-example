@@ -65,7 +65,7 @@ will automatically end.
 
 ```js
 const { AddonStudies } = ChromeUtils.import(
-  "resource://normandy/lib/AddonStudies.jsm"
+  "resource://normandy/lib/AddonStudies.jsm",
 );
 await AddonStudies.add({
   recipeId: 42,
@@ -82,7 +82,7 @@ await AddonStudies.add({
   extensionHash: "badhash",
   hashAlgorithm: "sha256",
   studyStartDate: new Date(),
-  studyEndDate: null
+  studyEndDate: null,
 });
 ```
 

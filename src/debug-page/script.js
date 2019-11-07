@@ -1,5 +1,5 @@
 function makeEl(type, attrs = {}, ...children) {
-  let el = document.createElement(type);
+  const el = document.createElement(type);
   for (const [key, val] of Object.entries(attrs)) {
     el.setAttribute(key, val);
   }
@@ -26,8 +26,8 @@ async function main() {
         makeEl("code", {}, browser.runtime.id),
         " version ",
         makeEl("code", {}, manifest.version),
-        "."
-      )
+        ".",
+      ),
     );
 
   console.log("Getting compatibility information");
@@ -39,8 +39,8 @@ async function main() {
           makeEl(
             "p",
             { class: "error" },
-            "Normandy APIs are not accessible. are you sure you are using a compatible version of Firefox?"
-          )
+            "Normandy APIs are not accessible. are you sure you are using a compatible version of Firefox?",
+          ),
         );
     }
   } catch (err) {
@@ -51,22 +51,23 @@ async function main() {
           "p",
           { class: "error" },
           "Could not load compatibility information:",
-          err
-        )
+          err,
+        ),
       );
     throw err;
   }
 
   console.log("getting study information");
+  let study;
   try {
-    const study = await browser.normandyAddonStudy.getStudy();
+    study = await browser.normandyAddonStudy.getStudy();
 
     if (study) {
       // We have a study. Show it
       document
         .querySelector("#study-data")
         .appendChild(
-          makeEl("pre", {}, makeEl("code", {}, JSON.stringify(study, null, 4)))
+          makeEl("pre", {}, makeEl("code", {}, JSON.stringify(study, null, 4))),
         );
       document
         .querySelector("#branch-indicator")
@@ -79,8 +80,8 @@ async function main() {
             "p",
             { class: "error" },
             "No study associated with this extension. ",
-            "Are you sure you installed this extension via a Normandy addon study?"
-          )
+            "Are you sure you installed this extension via a Normandy addon study?",
+          ),
         );
     }
   } catch (err) {
@@ -91,8 +92,8 @@ async function main() {
           "p",
           { class: "error" },
           "Could not load study information:",
-          err
-        )
+          err,
+        ),
       );
     throw err;
   }
@@ -107,8 +108,8 @@ async function main() {
           makeEl(
             "pre",
             {},
-            makeEl("code", {}, JSON.stringify(metadata, null, 4))
-          )
+            makeEl("code", {}, JSON.stringify(metadata, null, 4)),
+          ),
         );
     } else {
       document
@@ -117,8 +118,8 @@ async function main() {
           makeEl(
             "p",
             { class: "error" },
-            "No client metadata returned. This is a bug."
-          )
+            "No client metadata returned. This is a bug.",
+          ),
         );
     }
   } catch (err) {
@@ -126,7 +127,7 @@ async function main() {
     document
       .querySelector("#client-data")
       .appendChild(
-        makeEl("p", { class: "error" }, "Could not load client metadata:", err)
+        makeEl("p", { class: "error" }, "Could not load client metadata:", err),
       );
     throw err;
   }
@@ -140,8 +141,8 @@ async function main() {
     endStudyDiv.append(makeEl("p", { class: "error" }, "No study found"));
   }
 
-  let form = document.querySelector("#end-study form");
-  let endingLog = document.querySelector("#end-study .log");
+  const form = document.querySelector("#end-study form");
+  const endingLog = document.querySelector("#end-study .log");
 
   function logEndEvent(...messages) {
     endingLog.appendChild(makeEl("li", {}, new Date(), ...messages));
@@ -149,7 +150,7 @@ async function main() {
 
   browser.normandyAddonStudy.onUnenroll.addListener(async reason => {
     logEndEvent("Received ending notification with reason: ", reason);
-    let delaySec = 10;
+    const delaySec = 10;
     logEndEvent(`Delaying for ${delaySec} seconds`);
     await new Promise(resolve => setTimeout(resolve, delaySec * 1000));
     logEndEvent("Done delaying");
@@ -157,8 +158,8 @@ async function main() {
 
   form.addEventListener("submit", async ev => {
     ev.preventDefault();
-    let reasonEl = form.querySelector("[name=reason]");
-    let reason = reasonEl.value;
+    const reasonEl = form.querySelector("[name=reason]");
+    const reason = reasonEl.value;
     reasonEl.value = "";
     logEndEvent("Ending study for reason: ", reason);
     browser.normandyAddonStudy.endStudy(reason);

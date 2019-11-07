@@ -1,14 +1,22 @@
 {
   "name": "normandy-nextgen-study-example",
-  "version": "0.3",
+  "version": "0.3.0",
   "description": "Demonstrates how to make a 2019-style Normandy add-on study",
   "private": true,
   "license": "MPLv2",
   "scripts": {
     "build": "node build.js",
-    "clean": "rimraf dist web-ext-artifacts"
+    "clean": "rimraf dist web-ext-artifacts",
+    "eslint": "eslint . --ext jsm,js,json",
+    "format": "npm run prettier && npm run eslint -- --fix",
+    "prettier": "prettier '**/*.{css,js,json,jsm,md}' --trailing-comma=all --ignore-path=.eslintignore --write"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-mozilla": "^0.4.4",
+    "eslint-plugin-no-unsanitized": "^2.0.1",
+    "prettier": "^1.10.2",
     "npm-run-all": "^4.1.3",
     "web-ext": "^2.6.0"
   },
