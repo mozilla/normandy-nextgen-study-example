@@ -57,7 +57,7 @@ build, and the preference `extensions.legacy.enabled` must be set to true.
 
 This add-on assume it was installed by Normandy as a part of a study. To
 manually add a study to Normandy's database, to test this add-on without
-involving a Normandy server, use the code below. This step can be done before
+involving a Normandy server, run the code below in the Browser Console. This step can be done before
 or after the add-on is installed.
 
 Note that if the add-on is not present when the browser starts up, the study
@@ -74,9 +74,9 @@ await AddonStudies.add({
   userFacingDescription: "Description",
   branch: "red",
   active: true,
-  addonId: "normandy-nextgen-study-example@mozilla.org",
+  addonId: "normandy-nextgen-study-example-a@mozilla.org",
   addonUrl:
-    "https://example.com/normandy-nextgen-study-example@mozilla.org-signed.xpi",
+    "https://example.com/normandy-nextgen-study-example-a@mozilla.org-signed.xpi",
   addonVersion: "0.1.0",
   extensionApiId: 1,
   extensionHash: "badhash",
