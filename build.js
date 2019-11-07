@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 const { promisify } = require("util");
 const fs = require("fs");
 const pathModule = require("path");
@@ -13,7 +15,7 @@ const packageJson = require("./package.json");
 const fsp = new Proxy(fs, {
   get(obj, prop) {
     return promisify(obj[prop]);
-  }
+  },
 });
 
 // Read extension files from here
@@ -37,12 +39,12 @@ async function copyAddonSrc({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
   const targetDir = pathModule.join(
     DEST_BASE_DIR,
-    `extension-${variant}-${computedVersion}`
+    `extension-${variant}-${computedVersion}`,
   );
   const templateData = {
     package: packageJson,
     variant,
-    versionSuffix
+    versionSuffix,
   };
 
   await new Promise((resolve, reject) => {
@@ -70,10 +72,10 @@ async function copyAddonSrc({ variant, versionSuffix }) {
               }
             } else {
               throw new Error(
-                `Can't handle path at ${path} - neither file nor directory`
+                `Can't handle path at ${path} - neither file nor directory`,
               );
             }
-          })()
+          })(),
         );
       })
       .on("end", async () => {
@@ -100,23 +102,23 @@ async function buildAddon({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
   const addonDir = pathModule.join(
     DEST_BASE_DIR,
-    `extension-${variant}-${computedVersion}`
+    `extension-${variant}-${computedVersion}`,
   );
   await webExt.cmd.build(
     {
       sourceDir: addonDir,
       overwriteDest: true,
-      artifactsDir: "web-ext-artifacts"
+      artifactsDir: "web-ext-artifacts",
     },
-    { shouldExitProgram: false }
+    { shouldExitProgram: false },
   );
-  let oldFilePath = pathModule.join(
+  const oldFilePath = pathModule.join(
     "web-ext-artifacts",
-    `normandy_nextgen_study_example-${computedVersion}.zip`
+    `normandy_nextgen_study_example-${computedVersion}.zip`,
   );
-  let newFilePath = pathModule.join(
+  const newFilePath = pathModule.join(
     "web-ext-artifacts",
-    `${packageJson.name}-${variant}@mozilla.org-${computedVersion}.xpi`
+    `${packageJson.name}-${variant}@mozilla.org-${computedVersion}.xpi`,
   );
   await fsp.rename(oldFilePath, newFilePath);
   console.log(`Renamed ${oldFilePath} to ${newFilePath}`);

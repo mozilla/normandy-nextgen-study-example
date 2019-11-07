@@ -47,45 +47,6 @@ with details about the add-on's operation. It should show several things.
    should be visible in about:addons. After the delay is over, the add-on
    will be uninstalled and the page will close.
 
-## Installing the Add-on
-
-For this add-on to work, it must be used in a version of Firefox with the
-Normandy Studies web-extension APIs available. These should be available in
-Firefox 69 or above, starting with Nightly 2019-06-28. Additionally, it must
-be run on a pre-release build, such as Nightly, Dev-Edition, or an unbranded
-build, and the preference `extensions.legacy.enabled` must be set to true.
-
-This add-on assume it was installed by Normandy as a part of a study. To
-manually add a study to Normandy's database, to test this add-on without
-involving a Normandy server, use the code below. This step can be done before
-or after the add-on is installed.
-
-Note that if the add-on is not present when the browser starts up, the study
-will automatically end.
-
-```js
-const { AddonStudies } = ChromeUtils.import(
-  "resource://normandy/lib/AddonStudies.jsm"
-);
-await AddonStudies.add({
-  recipeId: 42,
-  slug: "test",
-  userFacingName: "Test",
-  userFacingDescription: "Description",
-  branch: "red",
-  active: true,
-  addonId: "normandy-nextgen-study-example@mozilla.org",
-  addonUrl:
-    "https://example.com/normandy-nextgen-study-example@mozilla.org-signed.xpi",
-  addonVersion: "0.1.0",
-  extensionApiId: 1,
-  extensionHash: "badhash",
-  hashAlgorithm: "sha256",
-  studyStartDate: new Date(),
-  studyEndDate: null
-});
-```
-
 ## Development
 
 ```bash
@@ -97,3 +58,50 @@ Several built add-ons will be placed in `./web-ext-artifacts/`. Each is
 nearly identical except for the extension ID, which includes the name of the
 variant built. The variants are "a", "b", and "c". Nothing changes about the
 add-on in each variant except the ID.
+
+## Installing the Add-on
+
+Install and run one of the built variants:
+
+```bash
+npx web-ext run -s dist/extension-a-0.3.0
+npx web-ext run -s dist/extension-b-0.3.0
+npx web-ext run -s dist/extension-c-0.3.0
+```
+
+For the add-on to work, it must be used in a version of Firefox with the
+Normandy Studies web-extension APIs available. These should be available in
+Firefox 69 or above, starting with Nightly 2019-06-28. Additionally, it must
+be run on a pre-release build, such as Nightly, Dev-Edition, or an unbranded
+build, and the preference `extensions.legacy.enabled` must be set to true.
+
+This add-on assume it was installed by Normandy as a part of a study. To
+manually add a study to Normandy's database, to test this add-on without
+involving a Normandy server, run the code below in the Browser Console. This step can be done before
+or after the add-on is installed.
+
+Note that if the add-on is not present when the browser starts up, the study
+will automatically end.
+
+```js
+const { AddonStudies } = ChromeUtils.import(
+  "resource://normandy/lib/AddonStudies.jsm",
+);
+await AddonStudies.add({
+  recipeId: 42,
+  slug: "test",
+  userFacingName: "Test",
+  userFacingDescription: "Description",
+  branch: "red",
+  active: true,
+  addonId: "normandy-nextgen-study-example-a@mozilla.org",
+  addonUrl:
+    "https://example.com/normandy-nextgen-study-example-a@mozilla.org-signed.xpi",
+  addonVersion: "0.1.0",
+  extensionApiId: 1,
+  extensionHash: "badhash",
+  hashAlgorithm: "sha256",
+  studyStartDate: new Date(),
+  studyEndDate: null,
+});
+```
