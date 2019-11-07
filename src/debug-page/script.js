@@ -80,8 +80,55 @@ async function main() {
             "p",
             { class: "error" },
             "No study associated with this extension. ",
-            "Are you sure you installed this extension via a Normandy addon study?",
+            "Are you sure you installed this extension via a Normandy add-on study?",
           ),
+        );
+      document
+        .querySelector("#study-data")
+        .appendChild(
+          makeEl(
+            "p",
+            {},
+            "To test this add-on without involving a Normandy server, run the code below in the Browser Console:",
+          ),
+        );
+      document.querySelector("#study-data").appendChild(
+        makeEl(
+          "pre",
+          {},
+          makeEl(
+            "code",
+            {},
+            `const { AddonStudies } = ChromeUtils.import(
+  "resource://normandy/lib/AddonStudies.jsm",
+);
+await AddonStudies.add(${JSON.stringify(
+    {
+      recipeId: 42,
+      slug: "test",
+      userFacingName: manifest.name,
+      userFacingDescription: manifest.description,
+      branch: "red",
+      active: true,
+      addonId: browser.runtime.id,
+      addonUrl: `https://example.com/${browser.runtime.id}-foo.xpi`,
+      addonVersion: manifest.version,
+      extensionApiId: 1,
+      extensionHash: "badhash",
+      hashAlgorithm: "sha256",
+      studyStartDate: new Date(),
+      studyEndDate: null,
+    },
+    null,
+    4,
+  )});`,
+          ),
+        ),
+      );
+      document
+        .querySelector("#study-data")
+        .appendChild(
+          makeEl("p", {}, "Then reload this page or the add-on itself."),
         );
     }
   } catch (err) {
