@@ -183,9 +183,11 @@ await AddonStudies.add(${JSON.stringify(
   if (study && study.ended) {
     endStudyDiv.innerHTML = "";
     endStudyDiv.append(makeEl("p", {}, "The study has already ended."));
+    return;
   } else if (!study) {
     endStudyDiv.innerHTML = "";
     endStudyDiv.append(makeEl("p", { class: "error" }, "No study found"));
+    return;
   }
 
   const form = document.querySelector("#end-study form");
