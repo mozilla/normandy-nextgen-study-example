@@ -8,7 +8,7 @@
     "build": "node build.js",
     "clean": "rimraf dist web-ext-artifacts",
     "lint": "eslint . --ext jsm,js,json",
-    "format": "npm-run-all format:*",
+    "format": "npm-run-all -s -n format:prettier format:eslint",
     "format:eslint": "eslint . --ext jsm,js,json --fix",
     "format:prettier": "prettier '**/*.{css,js,json,jsm,md}' --trailing-comma=all --ignore-path=.eslintignore --write"
   },
