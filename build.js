@@ -108,6 +108,8 @@ async function buildAddon({ variant, versionSuffix }) {
     DEST_BASE_DIR,
     `extension-${variant}-${computedVersion}`,
   );
+  const manifestJsonPath = join(addonDir, "manifest.json");
+  const manifestJson = require(`./${manifestJsonPath}`);
   await webExt.cmd.build(
     {
       sourceDir: addonDir,
@@ -116,9 +118,12 @@ async function buildAddon({ variant, versionSuffix }) {
     },
     { shouldExitProgram: false },
   );
+  const webExtOutputName = manifestJson.name
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, "_");
   const oldFilePath = join(
     "web-ext-artifacts",
-    `normandy_nextgen_study_example-${computedVersion}.zip`,
+    `${webExtOutputName}-${computedVersion}.zip`,
   );
   const newFilePath = join(
     "web-ext-artifacts",
