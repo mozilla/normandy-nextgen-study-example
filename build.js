@@ -2,7 +2,7 @@
 
 const { promisify } = require("util");
 const fs = require("fs");
-const pathModule = require("path");
+const { join, relative } = require("path");
 
 const rimraf = promisify(require("rimraf"));
 const fsWalker = require("klaw");
@@ -37,7 +37,7 @@ const DEST_BASE_DIR = "./dist";
  */
 async function copyAddonSrc({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
-  const targetDir = pathModule.join(
+  const targetDir = join(
     DEST_BASE_DIR,
     `extension-${variant}-${computedVersion}`,
   );
@@ -56,8 +56,8 @@ async function copyAddonSrc({ variant, versionSuffix }) {
       .on("data", ({ path, stats }) => {
         promises.push(
           (async () => {
-            const relativePath = pathModule.relative(SOURCE_DIR, path);
-            const targetPath = pathModule.join(targetDir, relativePath);
+            const relativePath = relative(SOURCE_DIR, path);
+            const targetPath = join(targetDir, relativePath);
 
             if (stats.isDirectory()) {
               await fsp.mkdir(targetPath);
@@ -100,7 +100,7 @@ async function copyAddonSrc({ variant, versionSuffix }) {
  */
 async function buildAddon({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
-  const addonDir = pathModule.join(
+  const addonDir = join(
     DEST_BASE_DIR,
     `extension-${variant}-${computedVersion}`,
   );
@@ -112,11 +112,11 @@ async function buildAddon({ variant, versionSuffix }) {
     },
     { shouldExitProgram: false },
   );
-  const oldFilePath = pathModule.join(
+  const oldFilePath = join(
     "web-ext-artifacts",
     `normandy_nextgen_study_example-${computedVersion}.zip`,
   );
-  const newFilePath = pathModule.join(
+  const newFilePath = join(
     "web-ext-artifacts",
     `${packageJson.name}-${variant}@mozilla.org-${computedVersion}.xpi`,
   );
