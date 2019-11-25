@@ -34,6 +34,8 @@ const DEST_BASE_DIR = "./dist";
  *
  * @param {String} variant The variant of the extension to build. Used in file
  *        paths and provided to templates.
+ * @param {String} versionSuffix The version suffixed used to test upgrading
+ *        between versions of the add-on.
  */
 async function copyAddonSrc({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
@@ -97,6 +99,8 @@ async function copyAddonSrc({ variant, versionSuffix }) {
  *
  * @param {String} variant The variant of the extension to build. Used to find
  *        the source and name the final XPI file.
+ * @param {String} versionSuffix The version suffixed used to test upgrading
+ *        between versions of the add-on.
  */
 async function buildAddon({ variant, versionSuffix }) {
   const computedVersion = packageJson.version + versionSuffix;
