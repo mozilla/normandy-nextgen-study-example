@@ -61,12 +61,12 @@ add-on in each variant except the ID.
 
 ## Installing the Add-on
 
-Install and run one of the built variants:
+Run one of the variants:
 
 ```bash
-npx web-ext run -s dist/extension-a-0.3.0
-npx web-ext run -s dist/extension-b-0.3.0
-npx web-ext run -s dist/extension-c-0.3.0
+yarn run start:a
+yarn run start:b
+yarn run start:c
 ```
 
 For the add-on to work, it must be used in a version of Firefox with the

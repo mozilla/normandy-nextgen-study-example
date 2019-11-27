@@ -5,6 +5,9 @@
   "private": true,
   "license": "MPLv2",
   "scripts": {
+    "start:a": "npm run build && web-ext run -s dist/extension-a-$npm_package_version",
+    "start:b": "npm run build && web-ext run -s dist/extension-b-$npm_package_version",
+    "start:c": "npm run build && web-ext run -s dist/extension-c-$npm_package_version",
     "build": "node build.js",
     "clean": "rimraf dist web-ext-artifacts",
     "lint": "eslint . --ext jsm,js,json",
