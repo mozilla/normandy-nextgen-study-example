@@ -5,7 +5,7 @@ const defaultConfig = {
     firefox: process.env.FIREFOX_BINARY || "firefoxdeveloperedition",
     browserConsole: true,
     startUrl: ["about:debugging#/runtime/this-firefox"],
-    pref: ["extensions.legacy.enabled=true"],
+    pref: ["extensions.legacy.enabled=true", "extensions.experiments.enabled=true"],
   },
 };
 
